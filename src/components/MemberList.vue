@@ -1,7 +1,7 @@
 <template>
-  <div class="contain-content h-[100vh] w-full p-1 flex flex-col">
+  <div class="contain-content h-[100vh] w-full flex flex-col px-1">
     <!-- 固定标题 -->
-    <div class="flex justify-center items-center h-5 w-full px-4 border-b z-10">
+    <div class="flex justify-center items-center h-5 w-full py-0.5 px-4 border-b-[0.5px] z-10">
       <h3 v-if="!showSearchInput" class="flex justify-center w-full items-center text-black text-[0.6rem] font-extralight truncate">会员列表</h3>
 
       <!-- 搜索框 -->
@@ -10,7 +10,7 @@
         v-model="searchKeyword"
         type="text"
         placeholder="请输入关键词"
-        class="w-full h-4 ps-2 text-[0.4rem] border-b-0.5 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all"
+        class="w-full h-4 ps-2 text-[0.4rem] border-b-0.5 focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all"
         @click.stop
       />
 
