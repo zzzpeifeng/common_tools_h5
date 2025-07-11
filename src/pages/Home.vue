@@ -20,7 +20,7 @@ const handleLogin = () => {
 <template>
   <div class="container flex flex-col h-screen">
     <div class="flex-1 flex w-100% h-30 justify-center items-center">
-      <h1 class="text-3xl font-bold text-black text-3xl bg-center font-extralight">
+      <h1 class="text-3xl text-black bg-center font-extra light">
         会员系统
       </h1>
     </div>
