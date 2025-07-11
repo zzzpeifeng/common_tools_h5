@@ -1,5 +1,6 @@
 // eslintrc.cjs
 
+// eslint-disable-next-line no-undef
 module.exports = {
     root: true, // 停止向上查找父级目录中的配置文件
     env: {
@@ -26,5 +27,6 @@ module.exports = {
     rules: {
         'vue/multi-word-component-names': 'off',
         '@typescript-eslint/no-var-requires': 'off',
+        "@typescript-eslint/no-explicit-any": "off"
     },
 };

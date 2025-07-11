@@ -76,7 +76,7 @@ const logList = [
             <span class="text-[0.4rem] px-1">100</span>
           </div>
           <div class="flex flex-auto justify-center items-center">
-            <button @click="showPopup = true" class="text-blue-400 px-1 py-1 border-1 rounded-xs w-10">消费积分</button>
+            <button @click="showPopup = true" class="text-blue-400 text-[0.4rem] border-1 rounded-xs w-10">消费积分</button>
           </div>
         </div>
       </div>
@@ -84,7 +84,7 @@ const logList = [
       <!-- 弹窗 -->
       <div v-if="showPopup" class="fixed inset-0 flex items-center justify-center bg-gray-300 bg-opacity-100">
         <div class="bg-white px-2 py-1 rounded-sm">
-          <h3 class="text-[0.6rem] font-extralight mb-2">消费积分</h3>
+          <h3 class="text-[0.4rem] font-extralight mb-2">消费积分</h3>
           <input
               type="number"
               v-model="pointsToConsume"
@@ -93,13 +93,13 @@ const logList = [
           />
           <div class="flex justify-end space-x-2">
             <button
-                class="text-gray-600 px-2 py-1 border border-gray-300 rounded-xs"
+                class="text-gray-600 text-[0.4rem] px-2 py-1 border border-gray-300 rounded-xs"
                 @click="showPopup = false"
             >
               取消
             </button>
             <button
-                class="border-blue-400 border-1 text-blue-400 px-2 py-1 rounded-xs"
+                class="border-blue-400 text-[0.4rem] border-1 text-blue-400 px-2 py-1 rounded-xs"
             >
               确认
             </button>
@@ -119,7 +119,7 @@ const logList = [
                 <span  class="text-[0.4rem] font-extralight text-black">积分消费{{ item.point }}点</span>
               </div>
               <div class="flex items-center">
-                <span class=" text-[0.4rem] font-extra light text-black">{{ item.date }}</span>
+                <span class=" text-[0.4rem] font-extralight text-black">{{ item.date }}</span>
               </div>
             </li>
           </ul>

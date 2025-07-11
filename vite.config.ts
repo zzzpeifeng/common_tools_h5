@@ -5,7 +5,8 @@ import AutoImport from 'unplugin-auto-import/vite';
 // import viteVConsole from "vite-plugin-vconsole";
 import { resolve } from 'path';
 import tailwindcss from '@tailwindcss/vite'
-// const pathResolve = (dir: string) => resolve(__dirname, dir);
+import viteVConsole from "vite-plugin-vconsole";
+const pathResolve = (dir: string) => resolve(__dirname, dir);
 
 
 
@@ -33,15 +34,15 @@ export default defineConfig(({ mode }) => {
                     enabled: true,
                 },
             }),
-            // viteVConsole({
-            //     entry: pathResolve('src/main.ts'),
-            //     localEnabled: true,
-            //     enabled: env.VITE_BUILD_VCONSOLE === 'true',
-            //     config: {
-            //         maxLogNumber: 1000,
-            //         theme: 'dark',
-            //     },
-            // }),
+            viteVConsole({
+                entry: pathResolve('src/main.ts'),
+                localEnabled: true,
+                enabled: env.VITE_BUILD_VCONSOLE === 'true',
+                config: {
+                    maxLogNumber: 1000,
+                    theme: 'dark',
+                },
+            }),
         ],
         // 别名
         resolve: {
