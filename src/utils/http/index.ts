@@ -1,41 +1,38 @@
-// src/utils/http/user.ts
+// src/utils/http/index.ts
 
-import service, { AxiosRequestConfig } from 'axios';
-import {AxiosError, AxiosResponse} from "axios";
+import service, { AxiosRequestConfig } from './axiso';
+import {AxiosResponse} from "axios";
 export * from './types';
 
-
-
-export const request = <T>(config: AxiosRequestConfig): Promise<T> => {
-    console.log(config);
-    return new Promise((resolve) => {
+export const request = <T = any>(config: AxiosRequestConfig): Promise<T> => {
+    return new Promise((resolve, reject) => {
         service
             .request(config)
-            .then((res:AxiosResponse<T>) => {
+            .then((res: AxiosResponse<T>) => {
                 // 一些业务处理
                 resolve(res.data);
             })
-            .catch((err:AxiosError) => {
+            .catch((err) => {
                 console.log('request fail:', err);
             });
     });
 };
 
 const http = {
-    get<T>(url: string, params = {}, config?: AxiosRequestConfig): Promise<T> {
+    get<T = any>(url: string, params = {}, config?: AxiosRequestConfig): Promise<T> {
         return request({ url, params, ...config, method: 'GET' });
     },
-    post<T>(url: string, data = {}, config?: AxiosRequestConfig): Promise<T> {
+    post<T = any>(url: string, data = {}, config?: AxiosRequestConfig): Promise<T> {
         return request({ url, data, ...config, method: 'POST' });
     },
-    put<T>(url: string, data = {}, config?: AxiosRequestConfig): Promise<T> {
+    put<T = any>(url: string, data = {}, config?: AxiosRequestConfig): Promise<T> {
         return request({ url, data, ...config, method: 'PUT' });
     },
-    delete<T>(url: string, data = {}, config?: AxiosRequestConfig): Promise<T> {
+    delete<T = any>(url: string, data = {}, config?: AxiosRequestConfig): Promise<T> {
         return request({ url, data, ...config, method: 'DELETE' });
     },
     // 上传文件，指定 'Content-Type': 'multipart/form-data'
-    upload<T>(url: string, data = {}, config?: AxiosRequestConfig): Promise<T> {
+    upload<T = any>(url: string, data = {}, config?: AxiosRequestConfig): Promise<T> {
         return request({
             url,
             data,

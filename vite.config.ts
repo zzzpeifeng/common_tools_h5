@@ -2,7 +2,6 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import AutoImport from 'unplugin-auto-import/vite';
-// import viteVConsole from "vite-plugin-vconsole";
 import { resolve } from 'path';
 import tailwindcss from '@tailwindcss/vite'
 import viteVConsole from "vite-plugin-vconsole";
@@ -22,9 +21,9 @@ export default defineConfig(({ mode }) => {
             open: true,
             proxy: {
                 '/api': {
-                    target: 'http://localhost:8001',
-                    changeOrigin: true,
-                    rewrite: (path) => path.replace(/^\/api/, ''),
+                    target: 'http://127.0.0.1:8001',
+                    changeOrigin: true, // 是否代理
+                    // rewrite: (path) => path.replace(/^\/api/, ''),
                 }
             }
         },
@@ -68,7 +67,7 @@ export default defineConfig(({ mode }) => {
         // vite 配置
         define: {
             __APP_ENV__: JSON.stringify(env.APP_ENV),
-            'process.env': env,
+            // 'process.env': env,
         },
         // vite.config.ts
 

@@ -8,16 +8,19 @@ import router from '@/router';
 axios.defaults.timeout = 1000 * 60;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
+console.log(import.meta.env.VITE_APP_API_BASE_URL+"32132")
+
 // 创建axios实例
 const service = axios.create({
     // 根据不同env设置不同的baseURL
-    baseURL: import.meta.env.VITE_APP_API_BASE_URL,
+    // baseURL: import.meta.env.VITE_APP_API_BASE_URL,
+    baseURL: '/api',
 });
 
 // axios实例拦截请求
 service.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
-        console.log(config);
+        console.log("拦截器"+ config);
         config.headers = config.headers || {};
         return config;
     },
