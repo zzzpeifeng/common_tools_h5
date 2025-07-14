@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import { ref } from 'vue';
+import UserApi from '../api/user';
 
 const showLogin = ref(true);
 // 存储用户名
@@ -12,7 +13,11 @@ const password = ref('');
 const handleLogin = () => {
   console.log('用户名:', username.value, '密码:', password.value);
   // 可在此添加实际的登录请求逻辑
-  showLogin.value = false;
+  UserApi.login({
+    username: username.value,
+    password: password.value
+  })
+  // showLogin.value = false;
 };
 
 </script>

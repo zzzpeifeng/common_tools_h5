@@ -17,6 +17,7 @@ const service = axios.create({
 // axios实例拦截请求
 service.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
+        console.log(config);
         config.headers = config.headers || {};
         return config;
     },
@@ -28,7 +29,7 @@ service.interceptors.request.use(
 // axios实例拦截响应
 service.interceptors.response.use(
     // 2xx时触发
-    (response: AxiosResponse<Response>) => {
+    (response: AxiosResponse) => {
         // response.data就是后端返回的数据，结构根据你们的约定来定义
         const { code, message } = response.data;
         let errMessage = '';

@@ -7,6 +7,7 @@ export * from './types';
 
 
 export const request = <T>(config: AxiosRequestConfig): Promise<T> => {
+    console.log(config);
     return new Promise((resolve) => {
         service
             .request(config)

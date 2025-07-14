@@ -14,8 +14,10 @@ interface UserInfo {
     email: string;
 }
 
-export default {
+const UserApi = {
     async login(params: LoginParams) {
-        return await http.post<Response<UserInfo>>('/user/login', params);
-    },
-};
+        return await http.post<Response<UserInfo>>('/auth/merchant-login', params);
+    }
+}
+
+export default UserApi;
