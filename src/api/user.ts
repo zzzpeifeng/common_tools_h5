@@ -7,16 +7,23 @@ export interface LoginParams {
     password: string;
 }
 
-interface UserInfo {
-    id: number;
+export interface LoginResponse {
+    accessToken: string;
+    merchantInfo: MerchantInfo;
+}
+
+export interface MerchantInfo {
+    name: string,
     username: string;
-    mobile: number;
+    phone: number;
     email: string;
 }
 
+
+
 const UserApi = {
-    async login(params: LoginParams) {
-        return await http.post<Response<UserInfo>>('/auth/merchant-login', params);
+    async login(params: LoginParams): Promise<Response<any>>{
+        return await http.post<Response<LoginResponse>>('/auth/login', params);
     }
 }
 

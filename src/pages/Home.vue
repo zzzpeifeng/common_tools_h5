@@ -2,21 +2,37 @@
 
 import { ref } from 'vue';
 import UserApi from '../api/user';
+import {useMerchantStore} from '@/store/merchant'
+
 
 const showLogin = ref(true);
 // 存储用户名
-const username = ref('');
+const username = ref('testuser');
 // 存储密码
-const password = ref('');
+const password = ref('Test@123456');
+
+const merchantStore = useMerchantStore()
 
 // 处理登录逻辑的函数
-const handleLogin = () => {
+const handleLogin = async () => {
   console.log('用户名:', username.value, '密码:', password.value);
+  try {
+    const userInfo = await UserApi.login({
+      username: username.value,
+      password: password.value
+    })
+    console.log('用户信息:', userInfo)
+    console.log(userInfo.data)
+    if (userInfo && userInfo.data) {
+      merchantStore.setMerchantToken(userInfo.data.accessToken)
+      merchantStore.setMerchantInfo(userInfo.data.merchantInfo)
+      console.log('登录成功')
+    }
+  } catch (error ){
+    console.log('登录失败：',error )
+  }
   // 可在此添加实际的登录请求逻辑
-  UserApi.login({
-    username: username.value,
-    password: password.value
-  })
+
   // showLogin.value = false;
 };
 

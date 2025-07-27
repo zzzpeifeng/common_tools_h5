@@ -1,8 +1,7 @@
 // src/utils/http/axios.ts
 
 import axios, {AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
-import type {Response} from './types';
-// import { auth } from '@/utils';
+
 import router from '@/router';
 
 axios.defaults.timeout = 1000 * 60;
@@ -20,7 +19,6 @@ const service = axios.create({
 // axios实例拦截请求
 service.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
-        console.log("拦截器"+ config);
         config.headers = config.headers || {};
         return config;
     },
