@@ -9,7 +9,6 @@ export const useMerchantStore = defineStore('merchantInfo',{
         return {
             token: ref(''),
             merchant: {
-                id: 0,
                 name: '',
                 email: '',
                 phone: '',
@@ -17,10 +16,10 @@ export const useMerchantStore = defineStore('merchantInfo',{
             } as MerchantState,
             }
         },
-    // getters: {
-    //     getToken: (state) => state.token,
-    //     getMerchant: (state) => state.merchant,
-    // },
+    getters: {
+        getToken: (state) => state.token,
+        getMerchant: (state) => state.merchant,
+    },
     actions: {
         setMerchantToken(token: string){
             console.log('token',token);

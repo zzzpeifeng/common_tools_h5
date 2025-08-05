@@ -3,6 +3,8 @@
 import { ref } from 'vue';
 import UserApi from '../api/user';
 import {useMerchantStore} from '@/store/merchant'
+import router from "@/router";
+import {OFFLINE_STORE_URL} from "@/router/config";
 
 
 const showLogin = ref(true);
@@ -27,6 +29,8 @@ const handleLogin = async () => {
       merchantStore.setMerchantToken(userInfo.data.accessToken)
       merchantStore.setMerchantInfo(userInfo.data.merchantInfo)
       console.log('登录成功')
+      await router.push({path: '/offlineStore/list'});
+      console.log('跳转成功')
     }
   } catch (error ){
     console.log('登录失败：',error )

@@ -3,6 +3,7 @@
 import axios, {AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 
 import router from '@/router';
+import {useMerchantStore} from "@/store/merchant";
 
 axios.defaults.timeout = 1000 * 60;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
@@ -19,7 +20,14 @@ const service = axios.create({
 // axios实例拦截请求
 service.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
-        config.headers = config.headers || {};
+        const useMerchantState = useMerchantStore();
+        const headers = config.headers || {};
+
+        if(useMerchantState.token){
+            headers['Authorization'] = `Bearer ${useMerchantState.token}`;
+            console.log(headers)
+        }
+        config.headers = headers;
         return config;
     },
     (error: AxiosError) => {

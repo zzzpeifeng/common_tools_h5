@@ -1,15 +1,27 @@
 <script setup lang="ts">
 const memberIcon =ref('data:image/png;base64,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')
 
+
+
+import {useMerchantStore} from '@/store/merchant'
+
+// 从pinia缓存中获取商家信息
+const merchantInfoStore = useMerchantStore();
+const merchantInfo =merchantInfoStore.merchant;
+
+
+
+
+
 </script>
 
 <template>
   <div class="w-full h-14 bg-black flex flex-row">
     <!-- 左侧商家信息：垂直+水平居中 -->
     <div class="gb-white h-14 w-full ps-2 flex flex-col flex-auto justify-center">
-      <h2 class="text-white font-extralight text-[0.6rem]">商家名称</h2>
-      <h3 class="text-white text-[0.35rem]">门店电话：13333332222</h3>
-      <h3 class="text-white text-[0.35rem]">门店地址：商家地址</h3>
+      <h2 class="text-white font-extralight text-[0.6rem]">{{ merchantInfo.name }}</h2>
+      <h3 class="text-white text-[0.35rem]">门店电话：{{ merchantInfo.phone }}</h3>
+      <h3 class="text-white text-[0.35rem]">门店地址：{{ merchantInfo.address  }}</h3>
     </div>
     <!-- 右侧图片区域 -->
     <div class="flex items-center justify-center p-3">

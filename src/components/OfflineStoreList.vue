@@ -1,12 +1,52 @@
 <script setup lang="ts">
-const offStoreList = [
-  { icon: new URL('../assets/memberIcon.png', import.meta.url).href, storeName: '门店名称A' },
-  { icon: new URL('../assets/vue.svg', import.meta.url).href, storeName: '门店名称B' },
-  { icon: new URL('../assets/memberIcon.png', import.meta.url).href, storeName: '门店名称C' },
-  { icon: new URL('../assets/memberIcon.png', import.meta.url).href, storeName: '门店名称D' },
-];
+
+import OfflineStoreApi from '@/api/offlinestore'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+// 定义OfflineStore接口
+interface OfflineStore {
+  id?: number;
+  name: string;
+  icon?: string;
+  [key: string]: any; // 允许其他属性
+}
+
+const offStoreList = ref<OfflineStore[]>([])
 
 
+
+
+
+const getOfflineStoreList = async() => {
+  try{
+    const offlineStoreData = await OfflineStoreApi.getOfflineStoreListByMerchant();
+    offStoreList.value = offlineStoreData.data || []
+    console.log(offStoreList)
+  } catch(error) {
+    console.error('获取门店列表失败:', error);
+    offStoreList.value = [];
+  }
+}
+
+
+// 跳转到会员列表页面
+const goToMemberList = (storeId: number | undefined) => {
+  if (storeId !== undefined) {
+    router.push({
+      name: 'memberList',
+      query: {
+        storeId: storeId
+      }
+    });
+  }
+}
+
+
+onMounted(async () => {
+  console.log("mount")
+  await getOfflineStoreList();
+})
 
 
 </script>
@@ -18,9 +58,12 @@ const offStoreList = [
     </div>
     <!-- 门店列表 -->
     <div class=" grid grid-cols-2 gap-2 overflow-y-auto mt-2">
-      <div v-for="(offStore,index) in offStoreList" :key="index" class="flex flex-col items-center bg-white p-1 rounded-md shadow-sm hover:shadow-md transition-shadow">
+      <div v-for="(offStore,index) in offStoreList"
+           :key="index"
+           @click="goToMemberList(offStore.id)"
+           class="flex flex-col items-center bg-white p-1 rounded-md shadow-sm hover:shadow-md transition-shadow">
         <img :src="offStore.icon" alt="门店图片" class="w-12 h-12 object-cover mb-1 bg-gray-100">
-        <span class="text-[0.3rem] text-center">{{ offStore.storeName }}</span>
+        <span class="text-[0.3rem] text-center">{{ offStore.name }}</span>
       </div>
     </div>
   </div>
