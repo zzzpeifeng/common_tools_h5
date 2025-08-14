@@ -35,6 +35,88 @@
         </div>
       </li>
     </ul>
+    <!-- 固定的圆形添加按钮 -->
+    <button class="fixed bottom-4 right-4 w-8 h-8 bg-blue-500 rounded-full shadow-lg flex items-center justify-center text-white text-xl z-10"
+            @click="openAddMemberModal">
+      +
+    </button>
+    <!-- 添加会员模态框 -->
+    <div
+        v-if="showAddMemberModal"
+        class="fixed inset-0 z-20 flex items-end justify-center"
+    >
+      <div
+          class="absolute inset-0 bg-black transition-opacity duration-300"
+          :class="showAddMemberModal ? 'bg-opacity-50' : 'bg-opacity-0'"
+          @click="closeAddMemberModal"
+      ></div>
+
+      <div class="relative bg-white w-full  p-2 transform transition-transform duration-300 ease-in-out"
+           :class="modalTransitioning ? 'translate-y-0' : 'translate-y-full'">
+        <h4  class="text-lg font-extralight mb-2 text-center text-[0.6rem]">添加会员</h4>
+
+        <form @submit.prevent="submitMember">
+          <div class="mb-1">
+            <label class="block text-gray-700 text-[0.4rem] font-extralight mb-1" for="name">
+              名称
+            </label>
+            <input
+                id="name"
+                v-model="newMember.name"
+                type="text"
+                class="shadow appearance-none border text-[0.4rem] w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="请输入会员名称"
+                required
+            />
+          </div>
+
+          <div class="mb-1">
+            <label class="block text-gray-700 text-[0.4rem] font-extralight mb-1" for="pin">
+              PIN码
+            </label>
+            <input
+                id="pin"
+                v-model="newMember.pin"
+                type="password"
+                class="shadow appearance-none border w-full py-1 px-2 text-[0.4rem] text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="请输入PIN码"
+                required
+            />
+          </div>
+
+          <div class="mb-2">
+            <label class="block text-gray-700 text-[0.4rem] font-extralight mb-1" for="confirmPin">
+              确认PIN码
+            </label>
+            <input
+                id="confirmPin"
+                v-model="newMember.confirmPin"
+                type="password"
+                class="shadow appearance-none border text-[0.4rem]  w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="请再次输入PIN码"
+                required
+            />
+          </div>
+
+          <div class="flex items-center justify-between">
+            <button
+                type="button"
+                class="bg-gray-500 hover:bg-gray-700 text-white text-[0.4rem] font-extralight py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                @click="closeAddMemberModal"
+            >
+              取消
+            </button>
+            <button
+                type="submit"
+                class="bg-blue-500 hover:bg-blue-700 text-white text-[0.4rem] font-extralight py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+            >
+              提交
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -58,6 +140,8 @@ const members = [
 
 const showSearchInput = ref(false);
 const searchKeyword = ref('');
+const showAddMemberModal = ref(false);
+const modalTransitioning = ref(false);
 
 // 过滤后的会员列表
 const filteredMembers = computed(() => {
@@ -71,6 +155,44 @@ const filteredMembers = computed(() => {
 const toggleSearch = () => {
   showSearchInput.value = !showSearchInput.value;
 };
+
+const newMember = ref({
+  name: '',
+  pin: '',
+  confirmPin: ''
+});
+
+const submitMember = () => {
+  // 简单验证PIN码是否一致
+  if (newMember.value.pin !== newMember.value.confirmPin) {
+    alert('两次输入的PIN码不一致，请重新输入');
+    return;
+  }
+};
+
+const openAddMemberModal = () => {
+  showAddMemberModal.value = true;
+  // 在下次DOM更新后触发动画
+  nextTick(() => {
+    modalTransitioning.value = true;
+  });
+};
+
+
+  const closeAddMemberModal = () => {
+    showAddMemberModal.value = false;
+    // 等待动画结束后再隐藏模态框
+    setTimeout(() => {
+      showAddMemberModal.value = false;
+      // 重置表单
+      newMember.value = {
+        name: '',
+        pin: '',
+        confirmPin: ''
+      };
+    }, 300);
+  };
+
 </script>
 
 <style scoped>

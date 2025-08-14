@@ -20,8 +20,7 @@ const merchantInfo =merchantInfoStore.merchant;
     <!-- 左侧商家信息：垂直+水平居中 -->
     <div class="gb-white h-14 w-full ps-2 flex flex-col flex-auto justify-center">
       <h2 class="text-white font-extralight text-[0.6rem]">{{ merchantInfo.name }}</h2>
-      <h3 class="text-white text-[0.35rem]">门店电话：{{ merchantInfo.phone }}</h3>
-      <h3 class="text-white text-[0.35rem]">门店地址：{{ merchantInfo.address  }}</h3>
+      <h3 class="text-white text-[0.35rem]">商家电话：{{ merchantInfo.phone }}</h3>
     </div>
     <!-- 右侧图片区域 -->
     <div class="flex items-center justify-center p-3">
